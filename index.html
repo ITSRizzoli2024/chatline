@@ -131,27 +131,214 @@
         </div>
     </section>
 
-    <!-- App Section -->
-    <section id="app" class="py-20">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Accedi all'App</h2>
-            <!-- App Container -->
-            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
-                <div class="space-y-4">
-                    <div class="flex flex-col space-y-2">
-                        <label for="phone" class="text-gray-700">Numero di telefono</label>
-                        <input type="tel" id="phone" class="border rounded-lg p-2" placeholder="+39 xxx xxxxxxx">
+<!-- App Section -->
+<section id="app" class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Accedi all'App</h2>
+        <div id="app-container"></div>
+    </div>
+</section>
+
+<script>
+    class ChatlineApp {
+        constructor(container) {
+            this.container = container;
+            this.currentView = 'login';
+            this.phoneNumber = '';
+            this.verificationCode = '';
+            this.gender = '';
+            this.render();
+        }
+
+        createLoginView() {
+            return `
+                <div class="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6">
+                    <div class="space-y-4">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-gray-700">Numero di telefono</label>
+                            <input 
+                                type="tel" 
+                                class="w-full p-2 border rounded-lg" 
+                                placeholder="+39 xxx xxxxxxx"
+                                value="${this.phoneNumber}"
+                            >
+                        </div>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700" id="login-button">
+                            Accedi
+                        </button>
+                        <p class="text-sm text-gray-500 text-center">
+                            Riceverai un codice SMS per verificare il tuo numero
+                        </p>
                     </div>
-                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">
-                        Accedi
-                    </button>
-                    <p class="text-sm text-gray-500 text-center">
-                        Riceverai un codice SMS per verificare il tuo numero
-                    </p>
                 </div>
-            </div>
-        </div>
-    </section>
+            `;
+        }
+
+        createVerifyView() {
+            return `
+                <div class="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6">
+                    <div class="space-y-4">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-gray-700">Codice di Verifica</label>
+                            <input 
+                                type="text" 
+                                class="w-full p-2 border rounded-lg" 
+                                placeholder="Inserisci il codice ricevuto"
+                                value="${this.verificationCode}"
+                            >
+                        </div>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700" id="verify-button">
+                            Verifica
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        createProfileView() {
+            return `
+                <div class="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-center space-x-4">
+                            <button class="px-4 py-2 rounded-lg ${
+                                this.gender === 'M' 
+                                    ? 'bg-purple-600 text-white' 
+                                    : 'bg-white text-purple-600 border border-purple-600'
+                            }" id="male-button">
+                                Uomo
+                            </button>
+                            <button class="px-4 py-2 rounded-lg ${
+                                this.gender === 'F' 
+                                    ? 'bg-purple-600 text-white' 
+                                    : 'bg-white text-purple-600 border border-purple-600'
+                            }" id="female-button">
+                                Donna
+                            </button>
+                        </div>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700" id="complete-button">
+                            Inizia
+                        </button>
+                        <p class="text-sm text-gray-500 text-center">
+                            Le donne hanno accesso gratuito a tutte le funzionalità
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        createMainView() {
+            return `
+                <div class="bg-white rounded-lg shadow-lg max-w-2xl mx-auto p-6">
+                    <div class="space-y-4">
+                        ${this.gender === 'M' ? `
+                            <div class="text-right text-purple-600">
+                                Crediti: 100
+                            </div>
+                        ` : ''}
+                        <div class="space-y-2">
+                            ${[1, 2, 3].map(msg => `
+                                <div class="flex justify-between items-center p-3 border rounded-lg">
+                                    <div class="flex items-center space-x-2">
+                                        <span>🎤</span>
+                                        <span>Messaggio #${msg}</span>
+                                    </div>
+                                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                                        Ascolta
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">
+                            Registra Nuovo Messaggio
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        setupEventListeners() {
+            const container = this.container;
+
+            if (this.currentView === 'login') {
+                const loginButton = container.querySelector('#login-button');
+                const phoneInput = container.querySelector('input[type="tel"]');
+                
+                phoneInput?.addEventListener('input', (e) => {
+                    this.phoneNumber = e.target.value;
+                });
+                
+                loginButton?.addEventListener('click', () => {
+                    this.currentView = 'verify';
+                    this.render();
+                });
+            }
+
+            if (this.currentView === 'verify') {
+                const verifyButton = container.querySelector('#verify-button');
+                const codeInput = container.querySelector('input[type="text"]');
+                
+                codeInput?.addEventListener('input', (e) => {
+                    this.verificationCode = e.target.value;
+                });
+                
+                verifyButton?.addEventListener('click', () => {
+                    this.currentView = 'profile';
+                    this.render();
+                });
+            }
+
+            if (this.currentView === 'profile') {
+                const maleButton = container.querySelector('#male-button');
+                const femaleButton = container.querySelector('#female-button');
+                const completeButton = container.querySelector('#complete-button');
+                
+                maleButton?.addEventListener('click', () => {
+                    this.gender = 'M';
+                    this.render();
+                });
+                
+                femaleButton?.addEventListener('click', () => {
+                    this.gender = 'F';
+                    this.render();
+                });
+                
+                completeButton?.addEventListener('click', () => {
+                    this.currentView = 'main';
+                    this.render();
+                });
+            }
+        }
+
+        render() {
+            let content = '';
+            switch (this.currentView) {
+                case 'login':
+                    content = this.createLoginView();
+                    break;
+                case 'verify':
+                    content = this.createVerifyView();
+                    break;
+                case 'profile':
+                    content = this.createProfileView();
+                    break;
+                case 'main':
+                    content = this.createMainView();
+                    break;
+            }
+            
+            this.container.innerHTML = content;
+            this.setupEventListeners();
+        }
+    }
+
+    // Inizializzazione dell'app
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('app-container');
+        if (container) {
+            new ChatlineApp(container);
+        }
+    });
+</script>
 
     <!-- Safety Information -->
     <section class="py-20 bg-gray-100">
