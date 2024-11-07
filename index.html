@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatline - Incontri Vocali</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Aggiungo React e ReactDOM -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-purple-600">Chatline</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="text-gray-700 hover:text-purple-600">Caratteristiche</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-purple-600">Prezzi</a>
+                    <a href="#app" class="text-gray-700 hover:text-purple-600">Accedi</a>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        Registrati
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                La Tua Voce, La Tua Storia
+            </h1>
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto">
+                Chatline ti permette di conoscere nuove persone attraverso la voce.
+                Niente foto, niente superficialità - solo conversazioni autentiche.
+            </p>
+            <button class="bg-white text-purple-600 px-8 py-4 rounded-lg text-xl font-semibold hover:bg-gray-100">
+                Inizia Ora
+            </button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Come Funziona</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-purple-600 text-4xl mb-4">📱</div>
+                    <h3 class="text-xl font-semibold mb-2">Registrazione Sicura</h3>
+                    <p class="text-gray-600">
+                        Verifica semplice tramite numero di telefono con protezione della privacy.
+                    </p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-purple-600 text-4xl mb-4">🎙️</div>
+                    <h3 class="text-xl font-semibold mb-2">Messaggi Vocali</h3>
+                    <p class="text-gray-600">
+                        Registra e ascolta messaggi vocali per conoscere davvero le persone.
+                    </p>
+                </div>
+                <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-purple-600 text-4xl mb-4">🔒</div>
+                    <h3 class="text-xl font-semibold mb-2">Privacy Garantita</h3>
+                    <p class="text-gray-600">
+                        Sistema di messaggistica anonima e sicura.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Tariffe Trasparenti</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-center mb-4">Per Lei</h3>
+                    <p class="text-4xl font-bold text-center text-purple-600 mb-4">Gratis</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Accesso illimitato
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Messaggi vocali illimitati
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Tutte le funzionalità premium
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-center mb-4">Per Lui</h3>
+                    <p class="text-4xl font-bold text-center text-purple-600 mb-4">Da 9.99€</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Accesso base gratuito
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Crediti per messaggi vocali
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Funzionalità premium con crediti
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section id="app" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Accedi all'App</h2>
+            <!-- App Container -->
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+                <div class="space-y-4">
+                    <div class="flex flex-col space-y-2">
+                        <label for="phone" class="text-gray-700">Numero di telefono</label>
+                        <input type="tel" id="phone" class="border rounded-lg p-2" placeholder="+39 xxx xxxxxxx">
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">
+                        Accedi
+                    </button>
+                    <p class="text-sm text-gray-500 text-center">
+                        Riceverai un codice SMS per verificare il tuo numero
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Information -->
+    <section class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">La Tua Sicurezza Prima di Tutto</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-4">Linee Guida per la Sicurezza</h3>
+                    <ul class="space-y-2">
+                        <li>• Non condividere mai il tuo numero di telefono</li>
+                        <li>• Mantieni l'anonimato nelle conversazioni iniziali</li>
+                        <li>• Segnala comportamenti inappropriati</li>
+                        <li>• Non inviare o richiedere contenuti espliciti</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-4">Il Nostro Impegno</h3>
+                    <ul class="space-y-2">
+                        <li>• Moderazione attiva 24/7</li>
+                        <li>• Verifica dell'età degli utenti</li>
+                        <li>• Protezione dei dati personali</li>
+                        <li>• Supporto cliente dedicato</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Chatline</h4>
+                    <p class="text-gray-400">
+                        Il modo più sicuro per trovare connessioni autentiche attraverso la voce.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Link Utili</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Chi Siamo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Come Funziona</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Sicurezza</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Legale</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Termini di Servizio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Contatti</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Supporto: support@chatline.it</li>
+                        <li class="text-gray-400">Sicurezza: safety@chatline.it</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Chatline. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
