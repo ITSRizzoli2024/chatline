@@ -178,7 +178,16 @@
                                 value="${this.phoneNumber}"
                             >
                         </div>
-                        Ho letto e accettato la Privacy policy e le condizioni d'uso del servizio
+                       <div class="flex items-center space-x-2">
+                           <input 
+                               type="checkbox" 
+                               id="privacy-check"
+                               class="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                           >
+                           <label for="privacy-check" class="text-sm text-gray-700">
+                               Ho letto e accettato la <a href="privacy.html" class="text-purple-600 hover:text-purple-800">Privacy policy</a> e le <a href="condizioni.html" class="text-purple-600 hover:text-purple-800">condizioni d'uso</a> del servizio
+                           </label>
+                       </div>
                         <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700" id="login-button">
                             Accedi
                         </button>
@@ -235,7 +244,7 @@
                             Inizia
                         </button>
                         <p class="text-sm text-gray-500 text-center">
-                            Le donne hanno accesso gratuito a tutte le funzionalità
+                            Ecco l'accesso gratuito a tutte le funzionalità
                         </p>
                     </div>
                 </div>
