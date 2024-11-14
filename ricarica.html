@@ -86,12 +86,34 @@
 
         
 
-        <!-- Form Section -->
-        <section class="py-12">
-            <div class="max-w-xl mx-auto px-4">
-                <div class="bg-white rounded-lg shadow-lg p-8">
-                    <form id="rechargeForm" onsubmit="return false;">
-                        <div class="space-y-6">
+    <!-- Tabs Section -->
+    <section id="recharge-tabs" class="py-12">
+        <div class="max-w-xl mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-lg">
+                <!-- Tab Headers -->
+                <div class="border-b">
+                    <div class="flex relative">
+                        <button 
+                            class="flex-1 py-4 px-6 text-center focus:outline-none" 
+                            data-tab="minutes"
+                            id="tab-minutes">
+                            Ricarica Minuti
+                        </button>
+                        <button 
+                            class="flex-1 py-4 px-6 text-center focus:outline-none" 
+                            data-tab="points"
+                            id="tab-points">
+                            Ricarica Punti
+                        </button>
+                        <!-- Tab Slider -->
+                        <div class="tab-slider absolute bottom-0 left-0 h-0.5 w-1/2 bg-purple-600 transition-transform"></div>
+                    </div>
+                </div>
+                <!-- Tab Contents -->
+                <div class="p-8">
+                    <!-- Ricarica Minuti Form -->
+                    <div id="minutes-content" class="tab-content">
+                        <form class="space-y-6">
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">
                                     Il tuo numero di telefono
@@ -103,9 +125,37 @@
                                     required
                                 >
                             </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 mb-2">Riepilogo Ricarica</h3>
+                                <p class="text-gray-600 mb-2">60 minuti di conversazione</p>
+                                <p class="text-2xl font-bold text-purple-600">9,90 €</p>
+                            </div>
+                            <button 
+                                type="button"
+                                class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors"
+                                onclick="showConfirmation('minutes')">
+                                Conferma
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Ricarica Punti Form -->
+                    <div id="points-content" class="tab-content hidden">
+                        <form class="space-y-6">
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">
-                                    Il tuo PIN personale
+                                    Numero Casella
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                                    placeholder="Inserisci il numero della tua casella"
+                                    required
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">
+                                    PIN
                                 </label>
                                 <input 
                                     type="password" 
@@ -116,20 +166,21 @@
                             </div>
                             <div class="bg-gray-50 p-4 rounded-lg">
                                 <h3 class="font-semibold text-gray-900 mb-2">Riepilogo Ricarica</h3>
-                                <p class="text-gray-600 mb-2">60 minuti di conversazione</p>
+                                <p class="text-gray-600 mb-2">60 punti</p>
                                 <p class="text-2xl font-bold text-purple-600">9,90 €</p>
                             </div>
                             <button 
-                                type="button" 
-                                id="confirmButton" 
-                                class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                                type="button"
+                                class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors"
+                                onclick="showConfirmation('points')">
                                 Conferma
                             </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
         <!-- Benefits Section -->
         <section class="py-12 bg-gray-50">
@@ -204,13 +255,25 @@
             <div class="mt-3 text-center">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Conferma Ricarica</h3>
                 <div class="mt-2 px-7 py-3">
-                    <p class="text-sm text-gray-500 mb-4">
-                        Confermi di voler ricaricare il numero:
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mb-4" id="phoneDisplay"></p>
-                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
-                        <p class="text-sm text-gray-700">Tempo di conversazione: <span class="font-semibold">60 minuti</span></p>
-                        <p class="text-lg font-bold text-purple-600 mt-1">9,90 €</p>
+                    <div id="modal-minutes" class="hidden">
+                        <p class="text-sm text-gray-500 mb-4">
+                            Confermi di voler ricaricare il numero:
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mb-4" id="phoneDisplay"></p>
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                            <p class="text-sm text-gray-700">Tempo di conversazione: <span class="font-semibold">60 minuti</span></p>
+                            <p class="text-lg font-bold text-purple-600 mt-1">9,90 €</p>
+                        </div>
+                    </div>
+                    <div id="modal-points" class="hidden">
+                        <p class="text-sm text-gray-500 mb-4">
+                            Confermi di voler ricaricare la casella:
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mb-4" id="boxDisplay"></p>
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                            <p class="text-sm text-gray-700">Punti: <span class="font-semibold">60 punti</span></p>
+                            <p class="text-lg font-bold text-purple-600 mt-1">9,90 €</p>
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-center space-x-4">
@@ -225,75 +288,82 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="text-xl font-bold mb-4">Chatline</h4>
-                    <p class="text-gray-400">
-                        Da più di 25 anni il modo più pratico e sicuro per fare amicizia con la voce.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold mb-4">Link Utili</h4>
-                    <ul class="space-y-2">
-                        <li><a href="chisiamo.html" class="text-gray-400 hover:text-white">Chi Siamo</a></li>
-                        <li><a href="caratteristiche.html" class="text-gray-400 hover:text-white">Come Funziona</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold mb-4">Legale</h4>
-                    <ul class="space-y-2">
-                        <li><a href="condizioni.html" class="text-gray-400 hover:text-white">Termini di Servizio</a></li>
-                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold mb-4">Contatti</h4>
-                    <ul class="space-y-2">
-                        <li class="text-gray-400">Supporto: support@chatline.it</li>
-                        <li class="text-gray-400">Sicurezza: safety@chatline.it</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-400">© 2024 Chatline. Tutti i diritti riservati. Chatline è un servizio erogato da 10993 Srl - Via Conservatorio, 30 - 20122 Milano P.IVA 13212040151</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const confirmButton = document.getElementById('confirmButton');
+            const tabMinutes = document.getElementById('tab-minutes');
+            const tabPoints = document.getElementById('tab-points');
+            const minutesContent = document.getElementById('minutes-content');
+            const pointsContent = document.getElementById('points-content');
+            const tabSlider = document.querySelector('.tab-slider');
             const modal = document.getElementById('confirmationModal');
+            const modalMinutes = document.getElementById('modal-minutes');
+            const modalPoints = document.getElementById('modal-points');
             const cancelButton = document.getElementById('cancelButton');
             const proceedButton = document.getElementById('proceedButton');
-            const phoneInput = document.querySelector('input[type="tel"]');
-            const phoneDisplay = document.getElementById('phoneDisplay');
-            const pinInput = document.querySelector('input[type="password"]');
 
-            confirmButton.addEventListener('click', function() {
-                if(phoneInput.value && pinInput.value) {
-                    phoneDisplay.textContent = phoneInput.value;
-                    modal.classList.remove('hidden');
+            // Tab Switching
+            function switchTab(tab) {
+                if (tab === 'minutes') {
+                    tabSlider.style.transform = 'translateX(0)';
+                    minutesContent.classList.remove('hidden');
+                    pointsContent.classList.add('hidden');
+                    tabMinutes.classList.add('text-purple-600');
+                    tabPoints.classList.remove('text-purple-600');
                 } else {
-                    alert('Inserisci numero di telefono e PIN per continuare');
+                    tabSlider.style.transform = 'translateX(100%)';
+                    minutesContent.classList.add('hidden');
+                    pointsContent.classList.remove('hidden');
+                    tabMinutes.classList.remove('text-purple-600');
+                    tabPoints.classList.add('text-purple-600');
                 }
+            }
+
+            tabMinutes.addEventListener('click', () => switchTab('minutes'));
+            tabPoints.addEventListener('click', () => switchTab('points'));
+
+            // Initialize first tab
+            switchTab('minutes');
+
+            // Smooth scroll for "Vai alla ricarica" button
+            document.querySelector('a[href="#recharge-tabs"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('#recharge-tabs').scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
 
-            cancelButton.addEventListener('click', function() {
+            // Modal handling
+            window.showConfirmation = function(type) {
+                if (type === 'minutes') {
+                    const phoneInput = minutesContent.querySelector('input[type="tel"]');
+                    if (phoneInput.value) {
+                        document.getElementById('phoneDisplay').textContent = phoneInput.value;
+                        modalMinutes.classList.remove('hidden');
+                        modalPoints.classList.add('hidden');
+                        modal.classList.remove('hidden');
+                    } else {
+                        alert('Inserisci un numero di telefono');
+                    }
+                } else {
+                    const boxInput = pointsContent.querySelector('input[type="text"]');
+                    const pinInput = pointsContent.querySelector('input[type="password"]');
+                    if (boxInput.value && pinInput.value) {
+                        document.getElementById('boxDisplay').textContent = boxInput.value;
+                        modalMinutes.classList.add('hidden');
+                        modalPoints.classList.remove('hidden');
+                        modal.classList.remove('hidden');
+                    } else {
+                        alert('Inserisci numero casella e PIN');
+                    }
+                }
+            };
+
+            cancelButton.addEventListener('click', () => {
                 modal.classList.add('hidden');
             });
 
-            proceedButton.addEventListener('click', function() {
-                // Qui inserire la logica per procedere al pagamento
-                console.log('Procedere al pagamento per il numero:', phoneInput.value);
-            });
-
-            // Chiudi la modale cliccando fuori
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.add('hidden');
                 }
