@@ -317,10 +317,13 @@
                                Custodisci con cura il tuo pincode e non comunicarlo a nessuno! 
                                Utilizza invece il tuo numero di casella per comunicarlo ai tuoi contatti e ricevere così nuovi messaggi.
                            </p>
-                           <p class="text-lg font-medium text-gray-900 mt-6">
+                           <p class="text-lg font-medium text-gray-900 mt-6 mb-8">
                                Ecco il numero telefonico che devi usare per parlare con Chatline e trovare la tua anima gemella: 
                                <span class="font-bold">02.9999999</span>. Buon divertimento con Chatline!
                            </p>
+                           <button class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 mt-6" id="close-button">
+                               Chiudi questa finestra
+                           </button>
                        </div>
                    </div>
                </div>
@@ -397,6 +400,13 @@
                startButton?.addEventListener('click', () => {
                    this.currentView = 'main';
                    this.render();
+               });
+           }
+
+           if (this.currentView === 'main') {
+               const closeButton = container.querySelector('#close-button');
+               closeButton?.addEventListener('click', () => {
+                   window.close();
                });
            }
        }
