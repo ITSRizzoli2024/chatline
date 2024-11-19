@@ -9,6 +9,17 @@
        .gradient-bg {
            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
        }
+       .info-tooltip {
+           display: none;
+           position: absolute;
+           left: 0;
+           top: 100%;
+           margin-top: 5px;
+           z-index: 50;
+       }
+       .info-icon:hover + .info-tooltip {
+           display: block;
+       }
    </style>
 </head>
 <body class="bg-gray-50">
@@ -34,6 +45,44 @@
        <div id="app-container"></div>
    </div>
 
+   <!-- Footer -->
+   <footer class="bg-gray-800 text-white py-12">
+       <div class="max-w-7xl mx-auto px-4">
+           <div class="grid md:grid-cols-4 gap-8">
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Chatline</h4>
+                   <p class="text-gray-400">
+                       Da più di 25 anni il modo più pratico e sicuro per fare amicizia con la voce.
+                   </p>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Link Utili</h4>
+                   <ul class="space-y-2">
+                       <li><a href="chisiamo.html" class="text-gray-400 hover:text-white">Chi Siamo</a></li>
+                       <li><a href="caratteristiche.html" class="text-gray-400 hover:text-white">Come Funziona</a></li>
+                   </ul>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Legale</h4>
+                   <ul class="space-y-2">
+                       <li><a href="condizioni.html" class="text-gray-400 hover:text-white">Termini di Servizio</a></li>
+                       <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                   </ul>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Contatti</h4>
+                   <ul class="space-y-2">
+                       <li class="text-gray-400">Supporto: support@chatline.it</li>
+                       <li class="text-gray-400">Sicurezza: safety@chatline.it</li>
+                   </ul>
+               </div>
+           </div>
+           <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+               <p class="text-gray-400">© 2024 Chatline. Tutti i diritti riservati. Chatline è un servizio erogato da 10993 Srl - Via Conservatorio, 30 - 20122 Milano P.IVA 13212040151</p>
+           </div>
+       </div>
+   </footer>
+
    <script>
        class LoginApp {
            constructor(container) {
@@ -51,9 +100,17 @@
                            <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">Accedi all'Area Personale</h2>
                            <form class="space-y-6">
                                <div>
-                                   <label class="block text-gray-700 font-medium mb-2">
-                                       Numero Casella
-                                   </label>
+                                   <div class="flex items-center mb-2">
+                                       <label class="block text-gray-700 font-medium">Numero Casella</label>
+                                       <div class="ml-2 relative">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help info-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                           </svg>
+                                           <div class="info-tooltip w-48 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                                               È il numero che hai ricevuto al momento della registrazione
+                                           </div>
+                                       </div>
+                                   </div>
                                    <input 
                                        type="text" 
                                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
@@ -63,9 +120,17 @@
                                    >
                                </div>
                                <div>
-                                   <label class="block text-gray-700 font-medium mb-2">
-                                       PIN
-                                   </label>
+                                   <div class="flex items-center mb-2">
+                                       <label class="block text-gray-700 font-medium">PIN</label>
+                                       <div class="ml-2 relative">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help info-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                           </svg>
+                                           <div class="info-tooltip w-48 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                                               Il tuo codice personale riservato
+                                           </div>
+                                       </div>
+                                   </div>
                                    <input 
                                        type="password" 
                                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
@@ -87,14 +152,22 @@
            }
 
            createDashboardView() {
-               // Simuliamo dei dati per l'esempio
                const minutes = 15;
                const points = 25;
-               const isLowCredit = minutes < 20; // Esempio di soglia per credito basso
+               const isLowCredit = minutes < 20;
 
                return `
                    <div class="max-w-2xl mx-auto px-4">
                        <div class="bg-white rounded-lg shadow-lg p-8">
+                           <div class="space-y-4 mb-8">
+                               <p class="text-lg text-gray-700 text-center">
+                                   Il Numero per chiamare Chatline è <span class="font-bold">02.29527555</span>
+                               </p>
+                               <p class="text-lg text-gray-700 text-center">
+                                   Il tuo Numero di Casella è <span class="font-bold">100000</span>
+                               </p>
+                           </div>
+
                            <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">Il tuo credito</h2>
                            
                            <div class="grid md:grid-cols-2 gap-6 mb-8">
@@ -116,13 +189,13 @@
                                </div>
                            ` : ''}
 
-                           <div class="text-center space-y-4">
-                               <a href="ricarica.html" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700">
+                           <div class="flex justify-center space-x-4">
+                               <a href="ricarica.html" class="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700">
                                    Effettua una Ricarica
                                </a>
-                               <p class="text-sm text-gray-500">
-                                   Ricarica il tuo credito per continuare a parlare con le persone che ti interessano
-                               </p>
+                               <a href="chiama.html" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700">
+                                   Chiama da Web
+                               </a>
                            </div>
                        </div>
                    </div>
