@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatline - Ricarica il tuo tempo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .tab-slider {
+            transition: transform 0.3s ease-in-out;
+        }
+        .tab-content {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .modal-content {
+            animation: slideIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .info-tooltip {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            margin-top: 5px;
+            z-index: 50;
+        }
+        .info-icon:hover + .info-tooltip {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-purple-600">Chatline</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="caratteristiche.html" class="text-gray-700 hover:text-purple-600">Caratteristiche</a>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        <a href="index.html">Home</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="flex-1">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        60 minuti di conversazioni illimitate a soli 9,90€
+                    </h1>
+                    <p class="text-xl text-white mb-8">
+                        Acquista minuti in tutta sicurezza e anonimato. Pagamento con carta di credito o PayPal
+                    </p>
+                    <a href="#recharge-tabs" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-xl font-semibold hover:bg-gray-100 inline-block">
+                        Vai alla ricarica
+                    </a>
+                </div>
+                <div class="flex-1">
+                    <div class="rounded-lg overflow-hidden shadow-xl">
+                        <img src="ricarica.jpeg" alt="Chatline" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section spiegazioni -->
+<!-- Recharge Tabs Section -->
+    <section id="recharge-tabs" class="py-12">
+        <div class="max-w-xl mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-lg">
+                <!-- Tab Headers -->
+                <div class="border-b">
+                    <div class="flex relative">
+                        <button class="flex-1 py-4 px-6 text-center focus:outline-none" data-tab="minutes" id="tab-minutes">
+                            Ricarica Minuti
+                        </button>
+                        <button class="flex-1 py-4 px-6 text-center focus:outline-none" data-tab="points" id="tab-points">
+                            Ricarica Punti
+                        </button>
+                        <div class="tab-slider absolute bottom-0 left-0 h-0.5 w-1/2 bg-purple-600 transition-transform"></div>
+                    </div>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="p-8">
+                    <!-- Ricarica Minuti Form -->
+                    <div id="minutes-content" class="tab-content">
+                        <form class="space-y-6">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <label class="block text-gray-700 font-medium">Il tuo numero di telefono</label>
+                                    <div class="ml-2 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help info-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <div class="info-tooltip w-48 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                                            Il numero di telefono da ricaricare
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="tel" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="+39 xxx xxxxxxx" required>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 mb-4">Scegli il tuo pacchetto</h3>
+                                <div class="space-y-4">
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="minutes-package" value="60" class="mr-3" checked>
+                                        <div class="flex-1">
+                                            <span class="font-medium">60 minuti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Ricarica base</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">9,90 €</span>
+                                    </label>
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="minutes-package" value="140" class="mr-3">
+                                        <div class="flex-1">
+                                            <span class="font-medium">140 minuti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Più conveniente</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">19,90 €</span>
+                                    </label>
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="minutes-package" value="400" class="mr-3">
+                                        <div class="flex-1">
+                                            <span class="font-medium">400 minuti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Migliore offerta</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">49,90 €</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="button" id="confirm-minutes" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
+                                Conferma
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Ricarica Punti Form -->
+                    <div id="points-content" class="tab-content hidden">
+                        <form class="space-y-6">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <label class="block text-gray-700 font-medium">Numero Casella</label>
+                                    <div class="ml-2 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help info-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <div class="info-tooltip w-48 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                                            Il numero della tua casella vocale
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Inserisci il numero della casella" required>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <label class="block text-gray-700 font-medium">PIN</label>
+                                    <div class="ml-2 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help info-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <div class="info-tooltip w-48 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                                            Il tuo codice personale riservato
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="password" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Inserisci il tuo PIN" required>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 mb-4">Scegli il tuo pacchetto</h3>
+                                <div class="space-y-4">
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="points-package" value="60" class="mr-3" checked>
+                                        <div class="flex-1">
+                                            <span class="font-medium">60 punti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Ricarica base</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">9,90 €</span>
+                                    </label>
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="points-package" value="140" class="mr-3">
+                                        <div class="flex-1">
+                                            <span class="font-medium">140 punti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Più conveniente</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">19,90 €</span>
+                                    </label>
+                                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="radio" name="points-package" value="400" class="mr-3">
+                                        <div class="flex-1">
+                                            <span class="font-medium">400 punti</span>
+                                            <span class="text-sm text-gray-500 ml-2">Migliore offerta</span>
+                                        </div>
+                                        <span class="font-bold text-purple-600">49,90 €</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="button" id="confirm-points" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
+                                Conferma
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal di Conferma -->
+    <div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 modal-backdrop">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white modal-content">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Conferma Ricarica</h3>
+                <div class="mt-2 px-7 py-3">
+                    <div id="modal-minutes" class="hidden">
+                        <p class="text-sm text-gray-500 mb-4">
+                            Confermi di voler ricaricare il numero:
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mb-4" id="phoneDisplay"></p>
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                            <p class="text-sm text-gray-700">Tempo di conversazione: <span class="font-semibold" id="minutesAmount"></span></p>
+                            <p class="text-lg font-bold text-purple-600 mt-1" id="minutesPrice"></p>
+                        </div>
+                    </div>
+                    <div id="modal-points" class="hidden">
+                        <p class="text-sm text-gray-500 mb-4">
+                            Confermi di voler ricaricare la casella:
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mb-4" id="boxDisplay"></p>
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                            <p class="text-sm text-gray-700">Punti: <span class="font-semibold" id="pointsAmount"></span></p>
+                            <p class="text-lg font-bold text-purple-600 mt-1" id="pointsPrice"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <button id="cancelButton" class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                        Annulla
+                    </button>
+                    <button id="proceedButton" class="px-4 py-2 bg-purple-600 text-white text-base font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        Procedi al pagamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    [... mantieni il footer originale ...]
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabMinutes = document.getElementById('tab-minutes');
+            const tabPoints = document.getElementById('tab-points');
+            const minutesContent = document.getElementById('minutes-content');
+            const pointsContent = document.getElementById('points-content');
+            const tabSlider = document.querySelector('.tab-slider');
+            const modal = document.getElementById('confirmationModal');
+            const modalMinutes = document.getElementById('modal-minutes');
+            const modalPoints = document.getElementById('modal-points');
+            const cancelButton = document.getElementById('cancelButton');
+            const proceedButton = document.getElementById('proceedButton');
+
+            // Package prices
+            const prices = {
+                '60': '9,90',
+                '140': '19,90',
+                '400': '49,90'
+            };
+
+            function switchTab(tab) {
+                if (tab === 'minutes') {
+                    tabSlider.style.transform = 'translateX(0)';
+                    minutesContent.classList.remove('hidden');
+                    pointsContent.classList.add('hidden');
+                    tabMinutes.classList.add('text-purple-600');
+                    tabPoints.classList.remove('text-purple-600');
+                } else {
+                    tabSlider.style.transform = 'translateX(100%)';
+                    minutesContent.classList.add('hidden');
+                    pointsContent.classList.remove('hidden');
+                    tabMinutes.classList.remove('text-purple-600');
+                    tabPoints.classList.add('text-purple-600');
+                }
+            }
+
+            // Event listeners per le tabs
+            tabMinutes.addEventListener('click', () => switchTab('minutes'));
+            tabPoints.addEventListener('click', () => switchTab('points'));
+
+            // Event listener per il pulsante Conferma (minuti)
+            document.getElementById('confirm-minutes').addEventListener('click', function() {
+                const phoneInput = minutesContent.querySelector('input[type="tel"]');
+                const selectedPackage = minutesContent.querySelector('input[name="minutes-package"]:checked');
+                
+                if (phoneInput.value && selectedPackage) {
+                    document.getElementById('phoneDisplay').textContent = phoneInput.value;
+                    document.getElementById('minutesAmount').textContent = `${selectedPackage.value} minuti`;
+                    document.getElementById('minutesPrice').textContent = `${prices[selectedPackage.value]} €`;
+                    modalMinutes.classList.remove('hidden');
+                    modalPoints.classList.add('hidden');
+                    modal.classList.remove('hidden');
+
+		} else {
+                    alert('Inserisci tutti i dati richiesti');
+                }
+            });
+
+            // Event listener per il pulsante Conferma (punti)
+            document.getElementById('confirm-points').addEventListener('click', function() {
+                const boxInput = pointsContent.querySelector('input[type="text"]');
+                const pinInput = pointsContent.querySelector('input[type="password"]');
+                const selectedPackage = pointsContent.querySelector('input[name="points-package"]:checked');
+                
+                if (boxInput.value && pinInput.value && selectedPackage) {
+                    document.getElementById('boxDisplay').textContent = boxInput.value;
+                    document.getElementById('pointsAmount').textContent = `${selectedPackage.value} punti`;
+                    document.getElementById('pointsPrice').textContent = `${prices[selectedPackage.value]} €`;
+                    modalMinutes.classList.add('hidden');
+                    modalPoints.classList.remove('hidden');
+                    modal.classList.remove('hidden');
+                } else {
+                    alert('Inserisci tutti i dati richiesti');
+                }
+            });
+
+            // Event listeners per la modale
+            cancelButton.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+            proceedButton.addEventListener('click', () => {
+                // Qui inserire la logica per procedere al pagamento
+                console.log('Procedere al pagamento');
+            });
+
+            // Inizializza la prima tab
+            switchTab('minutes');
+        });
+    </script>
+</body>
+</html>
