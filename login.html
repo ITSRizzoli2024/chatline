@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Chatline - Area Personale</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+   <style>
+       .gradient-bg {
+           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+       }
+   </style>
+</head>
+<body class="bg-gray-50">
+   <!-- Header/Navigation -->
+   <nav class="bg-white shadow-lg fixed w-full z-50">
+       <div class="max-w-7xl mx-auto px-4">
+           <div class="flex justify-between h-16">
+               <div class="flex items-center">
+                   <span class="text-2xl font-bold text-purple-600">Chatline</span>
+               </div>
+               <div class="flex items-center space-x-4">
+                   <a href="caratteristiche.html" class="text-gray-700 hover:text-purple-600">Caratteristiche</a>
+                   <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                       <a href="index.html">Home</a>
+                   </button>
+               </div>
+           </div>
+       </div>
+   </nav>
+
+   <!-- Main Content -->
+   <div class="pt-24 pb-12">
+       <div id="app-container"></div>
+   </div>
+
+   <script>
+       class LoginApp {
+           constructor(container) {
+               this.container = container;
+               this.currentView = 'login';
+               this.boxNumber = '';
+               this.pinCode = '';
+               this.render();
+           }
+
+           createLoginView() {
+               return `
+                   <div class="max-w-md mx-auto px-4">
+                       <div class="bg-white rounded-lg shadow-lg p-8">
+                           <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">Accedi all'Area Personale</h2>
+                           <form class="space-y-6">
+                               <div>
+                                   <label class="block text-gray-700 font-medium mb-2">
+                                       Numero Casella
+                                   </label>
+                                   <input 
+                                       type="text" 
+                                       class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                                       placeholder="Inserisci il tuo numero di casella"
+                                       value="${this.boxNumber}"
+                                       required
+                                   >
+                               </div>
+                               <div>
+                                   <label class="block text-gray-700 font-medium mb-2">
+                                       PIN
+                                   </label>
+                                   <input 
+                                       type="password" 
+                                       class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                                       placeholder="Inserisci il tuo PIN"
+                                       value="${this.pinCode}"
+                                       required
+                                   >
+                               </div>
+                               <button 
+                                   type="button"
+                                   id="login-button"
+                                   class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
+                                   Accedi
+                               </button>
+                           </form>
+                       </div>
+                   </div>
+               `;
+           }
+
+           createDashboardView() {
+               // Simuliamo dei dati per l'esempio
+               const minutes = 15;
+               const points = 25;
+               const isLowCredit = minutes < 20; // Esempio di soglia per credito basso
+
+               return `
+                   <div class="max-w-2xl mx-auto px-4">
+                       <div class="bg-white rounded-lg shadow-lg p-8">
+                           <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">Il tuo credito</h2>
+                           
+                           <div class="grid md:grid-cols-2 gap-6 mb-8">
+                               <div class="bg-purple-50 p-6 rounded-lg text-center">
+                                   <h3 class="text-lg font-semibold text-gray-700 mb-2">Minuti Residui</h3>
+                                   <p class="text-3xl font-bold text-purple-600">${minutes}</p>
+                               </div>
+                               <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                                   <h3 class="text-lg font-semibold text-gray-700 mb-2">Punti Accumulati</h3>
+                                   <p class="text-3xl font-bold text-indigo-600">${points}</p>
+                               </div>
+                           </div>
+
+                           ${isLowCredit ? `
+                               <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg mb-6">
+                                   <p class="text-yellow-800 text-center">
+                                       Il tuo credito minuti è quasi esaurito! Effettua una ricarica per continuare a utilizzare tutti i servizi di Chatline.
+                                   </p>
+                               </div>
+                           ` : ''}
+
+                           <div class="text-center space-y-4">
+                               <a href="ricarica.html" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700">
+                                   Effettua una Ricarica
+                               </a>
+                               <p class="text-sm text-gray-500">
+                                   Ricarica il tuo credito per continuare a parlare con le persone che ti interessano
+                               </p>
+                           </div>
+                       </div>
+                   </div>
+               `;
+           }
+
+           setupEventListeners() {
+               if (this.currentView === 'login') {
+                   const loginButton = this.container.querySelector('#login-button');
+                   const boxInput = this.container.querySelector('input[type="text"]');
+                   const pinInput = this.container.querySelector('input[type="password"]');
+
+                   boxInput?.addEventListener('input', (e) => {
+                       this.boxNumber = e.target.value;
+                   });
+
+                   pinInput?.addEventListener('input', (e) => {
+                       this.pinCode = e.target.value;
+                   });
+
+                   loginButton?.addEventListener('click', () => {
+                       if (this.boxNumber && this.pinCode) {
+                           this.currentView = 'dashboard';
+                           this.render();
+                       } else {
+                           alert('Inserisci numero casella e PIN');
+                       }
+                   });
+               }
+           }
+
+           render() {
+               let content = '';
+               switch (this.currentView) {
+                   case 'login':
+                       content = this.createLoginView();
+                       break;
+                   case 'dashboard':
+                       content = this.createDashboardView();
+                       break;
+               }
+               
+               this.container.innerHTML = content;
+               this.setupEventListeners();
+           }
+       }
+
+       // Inizializzazione dell'app
+       document.addEventListener('DOMContentLoaded', () => {
+           const container = document.getElementById('app-container');
+           if (container) {
+               new LoginApp(container);
+           }
+       });
+   </script>
+</body>
+</html>
