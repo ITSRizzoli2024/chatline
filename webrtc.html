@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Chatline - Chiama da Web</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+   <style>
+       .gradient-bg {
+           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+       }
+       .dialpad-button {
+           transition: all 0.2s ease;
+       }
+       .dialpad-button:active {
+           transform: scale(0.95);
+           background-color: #4a5568;
+       }
+       .call-button {
+           transition: all 0.3s ease;
+       }
+       .call-button:active {
+           transform: scale(0.95);
+       }
+       .status-connected {
+           background-color: #48bb78;
+       }
+       .status-disconnected {
+           background-color: #e53e3e;
+       }
+       .status-calling {
+           background-color: #ecc94b;
+       }
+   </style>
+</head>
+<body class="bg-gray-50">
+   <!-- Header/Navigation -->
+   <nav class="bg-white shadow-lg fixed w-full z-50">
+       <div class="max-w-7xl mx-auto px-4">
+           <div class="flex justify-between h-16">
+               <div class="flex items-center">
+                   <span class="text-2xl font-bold text-purple-600">Chatline</span>
+               </div>
+               <div class="flex items-center space-x-4">
+                   <a href="caratteristiche.html" class="text-gray-700 hover:text-purple-600">Caratteristiche</a>
+                   <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                       <a href="index.html">Home</a>
+                   </button>
+               </div>
+           </div>
+       </div>
+   </nav>
+
+   <!-- Main Content -->
+   <div class="pt-24 pb-12">
+       <div class="max-w-lg mx-auto px-4">
+           <div class="bg-white rounded-lg shadow-lg p-8">
+               <!-- Stato Chiamata -->
+               <div class="text-center mb-8">
+                   <div id="status" class="inline-flex items-center px-4 py-2 rounded-full text-white status-disconnected">
+                       <span class="mr-2">●</span>
+                       <span id="statusText">Non connesso</span>
+                   </div>
+               </div>
+
+               <!-- Pulsanti Chiamata -->
+               <div class="flex justify-center space-x-4 mb-8">
+                   <button id="callButton" class="call-button bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 flex items-center">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                       </svg>
+                       Chiama
+                   </button>
+                   <button id="hangupButton" class="call-button bg-red-500 text-white px-8 py-3 rounded-lg hover:bg-red-600 flex items-center hidden">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
+                       </svg>
+                       Riaggancia
+                   </button>
+               </div>
+
+               <!-- Tastierino -->
+               <div class="grid grid-cols-3 gap-4 max-w-xs mx-auto">
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">1</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">2</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">3</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">4</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">5</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">6</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">7</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">8</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">9</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">*</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">0</button>
+                   <button class="dialpad-button bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-6 rounded-lg text-xl">#</button>
+               </div>
+
+               <!-- Audio Remoto (nascosto) -->
+               <audio id="remoteAudio" autoplay></audio>
+           </div>
+       </div>
+   </div>
+
+   <!-- Footer -->
+   <footer class="bg-gray-800 text-white py-12">
+       <div class="max-w-7xl mx-auto px-4">
+           <div class="grid md:grid-cols-4 gap-8">
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Chatline</h4>
+                   <p class="text-gray-400">
+                       Da più di 25 anni il modo più pratico e sicuro per fare amicizia con la voce.
+                   </p>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Link Utili</h4>
+                   <ul class="space-y-2">
+                       <li><a href="chisiamo.html" class="text-gray-400 hover:text-white">Chi Siamo</a></li>
+                       <li><a href="caratteristiche.html" class="text-gray-400 hover:text-white">Come Funziona</a></li>
+                   </ul>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Legale</h4>
+                   <ul class="space-y-2">
+                       <li><a href="condizioni.html" class="text-gray-400 hover:text-white">Termini di Servizio</a></li>
+                       <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                   </ul>
+               </div>
+               <div>
+                   <h4 class="text-xl font-bold mb-4">Contatti</h4>
+                   <ul class="space-y-2">
+                       <li class="text-gray-400">Supporto: support@chatline.it</li>
+                       <li class="text-gray-400">Sicurezza: safety@chatline.it</li>
+                   </ul>
+               </div>
+           </div>
+           <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+               <p class="text-gray-400">© 2024 Chatline. Tutti i diritti riservati. Chatline è un servizio erogato da 10993 Srl - Via Conservatorio, 30 - 20122 Milano P.IVA 13212040151</p>
+           </div>
+       </div>
+   </footer>
+
+   <script>
+       // Gestione base degli stati UI
+       const callButton = document.getElementById('callButton');
+       const hangupButton = document.getElementById('hangupButton');
+       const status = document.getElementById('status');
+       const statusText = document.getElementById('statusText');
+       const dialpadButtons = document.querySelectorAll('.dialpad-button');
+
+       // Gestione click tastierino
+       dialpadButtons.forEach(button => {
+           button.addEventListener('click', () => {
+               // Qui andrà la logica per inviare i toni DTMF
+               console.log('Pressed:', button.textContent);
+           });
+       });
+
+       // Gestione chiamata
+       callButton.addEventListener('click', () => {
+           callButton.classList.add('hidden');
+           hangupButton.classList.remove('hidden');
+           status.classList.remove('status-disconnected');
+           status.classList.add('status-calling');
+           statusText.textContent = 'Chiamata in corso...';
+           // Qui andrà la logica WebRTC
+       });
+
+       // Gestione riaggancio
+       hangupButton.addEventListener('click', () => {
+           hangupButton.classList.add('hidden');
+           callButton.classList.remove('hidden');
+           status.classList.remove('status-calling');
+           status.classList.add('status-disconnected');
+           statusText.textContent = 'Non connesso';
+           // Qui andrà la logica WebRTC
+       });
+   </script>
+</body>
+</html>
